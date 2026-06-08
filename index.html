@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ubra Events & Boutique — Luxury Wedding Packages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ANIMATED BACKGROUND CANVAS -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- AURORA GLOW BLOBS -->
+<div class="aurora">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <img src="images/logo.jpg" alt="Ubra Events Logo" class="nav-logo-img">
+    <span class="nav-logo-text">UBRA EVENTS</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-logo-wrap">
+    <div class="pulse-ring"></div>
+    <div class="pulse-ring"></div>
+    <div class="orbit-dot"></div>
+    <div class="orbit-dot"></div>
+    <div class="orbit-dot"></div>
+    <!-- LOGO IMAGE — replace images/logo.jpg with your logo file -->
+    <img src="images/logo.jpg" alt="Ubra Events Logo" class="hero-logo-img">
+  </div>
+
+  <p class="hero-tag">✦ &nbsp; Est. Poblacion, Trento, ADS &nbsp; ✦</p>
+  <h1>Ubra Events<em>&amp; Boutique</em></h1>
+  <div class="hero-divider"><span class="hero-divider-icon">✦</span></div>
+  <p class="hero-sub">Where every moment becomes an everlasting memory. We craft dream weddings with elegance, precision, and heart.</p>
+  <p class="hero-location">✦ &nbsp; Trento, Agusan del Sur, Philippines &nbsp; ✦</p>
+
+  <div class="hero-btns">
+    <a href="#packages" class="btn-gold">View Packages</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SERVICES
+══════════════════════════════════════ -->
+<section id="services" style="max-width:1200px;">
+  <div class="section-header reveal">
+    <span class="section-tag">What We Offer</span>
+    <h2 class="section-title">Complete <em>Wedding</em> Services</h2>
+    <div class="section-line"></div>
+    <p class="section-desc">From the very first detail to the final dance, we handle everything so you can simply cherish every moment.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-item shimmer-wrap reveal reveal-delay-1">
+      <div class="service-icon-wrap">🌸</div>
+      <p class="service-name">Venue &amp; Décor</p>
+      <p class="service-desc">Breathtaking venue styling and church decorations that transform spaces into enchanted settings.</p>
+    </div>
+    <div class="service-item shimmer-wrap reveal reveal-delay-2">
+      <div class="service-icon-wrap">🍽️</div>
+      <p class="service-name">Catering Services</p>
+      <p class="service-desc">Premium food and catering for up to 120 guests, curated menus to delight every palate.</p>
+    </div>
+    <div class="service-item shimmer-wrap reveal reveal-delay-3">
+      <div class="service-icon-wrap">👗</div>
+      <p class="service-name">Bridal Wardrobe</p>
+      <p class="service-desc">Stunning wardrobe selections for prenup shoots through the wedding day, for both bride and groom.</p>
+    </div>
+    <div class="service-item shimmer-wrap reveal reveal-delay-1">
+      <div class="service-icon-wrap">💄</div>
+      <p class="service-name">Hair &amp; Make Up</p>
+      <p class="service-desc">Professional artists who bring out your natural radiance and beauty for your most important day.</p>
+    </div>
+    <div class="service-item shimmer-wrap reveal reveal-delay-2">
+      <div class="service-icon-wrap">📷</div>
+      <p class="service-name">Photography &amp; Video</p>
+      <p class="service-desc">Full-day coverage including prenup shoots, on-the-day photography, videography, and same-day edits.</p>
+    </div>
+    <div class="service-item shimmer-wrap reveal reveal-delay-3">
+      <div class="service-icon-wrap">🎵</div>
+      <p class="service-name">Lights &amp; Sounds</p>
+      <p class="service-desc">Premium lighting rigs and crystal-clear sound systems to set the perfect atmosphere all evening.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PACKAGES
+══════════════════════════════════════ -->
+<section id="packages" style="max-width:1200px;">
+  <div class="section-header reveal">
+    <span class="section-tag">Wedding Packages</span>
+    <h2 class="section-title">Choose Your <em>Dream</em> Package</h2>
+    <div class="section-line"></div>
+    <p class="section-desc">Thoughtfully curated all-inclusive packages. You only need to say "I Do."</p>
+  </div>
+  <div class="package-row">
+
+    <!-- PACKAGE 1 — Classic -->
+    <div class="package-card reveal reveal-delay-1">
+      <!-- IMAGE — replace with your own photo. Recommended: 800×500px -->
+      <img class="package-img" src="images/package-classic.jpg" alt="Classic Wedding Package">
+      <div class="package-body">
+        <p class="package-name">Classic Package</p>
+        <span class="package-price">₱99,000 <span>/ wedding</span></span>
+        <div class="package-divider"></div>
+        <span class="package-label">Inclusions</span>
+        <ul class="package-list">
+          <li>80 pax Foods &amp; Catering Services</li>
+          <li>Wardrobe (Prenup – Wedding Day)</li>
+          <li>Professional Hair &amp; Make Up Artist</li>
+          <li>Venue &amp; Church Decorations</li>
+          <li>Photographer (On-the-Day)</li>
+        </ul>
+        <div class="package-freebies">
+          <span class="package-label">✦ Free Inclusions</span>
+          <ul class="package-list">
+            <li>Professional Host</li>
+            <li>30 pcs Souvenirs</li>
+            <li>100 pcs Merchandising</li>
+          </ul>
+        </div>
+        <a href="#contact" class="package-btn">Inquire Now</a>
+      </div>
+    </div>
+
+    <!-- PACKAGE 2 — All-In (Featured) -->
+    <div class="package-card featured reveal reveal-delay-2">
+      <div class="package-badge">Most Popular</div>
+      <!-- IMAGE — replace with your own photo. Recommended: 800×500px -->
+      <img class="package-img" src="images/package-allin.jpg" alt="All-In Wedding Package">
+      <div class="package-body">
+        <p class="package-name">All-In Package</p>
+        <span class="package-price">₱149,000 <span>/ wedding</span></span>
+        <div class="package-divider"></div>
+        <span class="package-label">Inclusions</span>
+        <ul class="package-list">
+          <li>100 pax Foods &amp; Catering Services</li>
+          <li>Wardrobe (Prenup – Wedding Day)</li>
+          <li>Professional Hair &amp; Make Up Artist</li>
+          <li>Venue &amp; Church Decorations</li>
+          <li>Photographer &amp; Videographer (Prenup–Wedding Day)</li>
+          <li>Premium Lights &amp; Sounds</li>
+          <li>2 Tier Cake</li>
+          <li>Professional Host</li>
+          <li>On-the-Day Coordinators</li>
+        </ul>
+        <div class="package-freebies">
+          <span class="package-label">✦ Free Inclusions</span>
+          <ul class="package-list">
+            <li>Unlimited Photobooth</li>
+            <li>40 pcs Invitations</li>
+            <li>40 pcs Souvenirs</li>
+            <li>100 pcs Merchandising</li>
+            <li>Framed Photo Portrait</li>
+            <li>Flashdrive (Photo &amp; Video)</li>
+            <li>Fresh Flowers Bouquet</li>
+            <li>Wine</li>
+          </ul>
+        </div>
+        <a href="#contact" class="package-btn">Inquire Now</a>
+      </div>
+    </div>
+
+    <!-- PACKAGE 3 — Premium -->
+    <div class="package-card reveal reveal-delay-3">
+      <!-- IMAGE — replace with your own photo. Recommended: 800×500px -->
+      <img class="package-img" src="images/package-premium.jpg" alt="Premium Wedding Package">
+      <div class="package-body">
+        <p class="package-name">Premium Package</p>
+        <span class="package-price">₱189,000 <span>/ wedding</span></span>
+        <div class="package-divider"></div>
+        <span class="package-label">Inclusions</span>
+        <ul class="package-list">
+          <li>120 pax Foods &amp; Catering Services</li>
+          <li>Wardrobe (Prenup – Wedding Day)</li>
+          <li>Professional Hair &amp; Make Up Artist</li>
+          <li>Venue &amp; Church Decorations</li>
+          <li>Photographer &amp; Videographer + Same Day Edit</li>
+          <li>Premium Lights &amp; Sounds</li>
+          <li>2 Tier Cake</li>
+          <li>Professional Host</li>
+          <li>On-the-Day Coordinators</li>
+        </ul>
+        <div class="package-freebies">
+          <span class="package-label">✦ Free Inclusions</span>
+          <ul class="package-list">
+            <li>Unlimited Photobooth</li>
+            <li>LED Wall</li>
+            <li>40 pcs Invitations</li>
+            <li>40 pcs Souvenirs</li>
+            <li>100 pcs Merchandising</li>
+            <li>Framed Photo Portrait</li>
+            <li>Flashdrive (Photo &amp; Video)</li>
+            <li>Fresh Flowers Bouquet</li>
+            <li>Wine</li>
+          </ul>
+        </div>
+        <a href="#contact" class="package-btn">Inquire Now</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     GALLERY
+     Replace images/gallery-1.jpg through gallery-4.jpg
+     with your own photos. Recommended: 800×600px each.
+══════════════════════════════════════ -->
+<div style="max-width:1200px;padding:0 24px;margin:0 auto;">
+  <div class="gallery-strip reveal">
+    <div class="gallery-cell">
+      <img src="images/gallery-1.jpg" alt="Wedding photo 1">
+    </div>
+    <div class="gallery-cell">
+      <img src="images/gallery-2.jpg" alt="Wedding photo 2">
+    </div>
+    <div class="gallery-cell">
+      <img src="images/gallery-3.jpg" alt="Wedding photo 3">
+    </div>
+    <div class="gallery-cell">
+      <img src="images/gallery-4.jpg" alt="Wedding photo 4">
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     QUOTE
+══════════════════════════════════════ -->
+<div class="quote-section">
+  <div class="quote-bg"></div>
+  <span class="quote-mark reveal">"</span>
+  <p class="quote-text reveal reveal-delay-1">Every love story is beautiful, but yours should be extraordinary. Let us craft the wedding you've always dreamed of.</p>
+  <div class="hero-divider reveal reveal-delay-2" style="margin:24px auto;"><span class="hero-divider-icon">✦</span></div>
+  <p class="quote-author reveal reveal-delay-3">Ubra Events &amp; Boutique — Poblacion, Trento, ADS</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     WHY US
+══════════════════════════════════════ -->
+<section id="why" style="max-width:1200px;padding:100px 24px;">
+  <div class="why-inner">
+    <div class="why-visual reveal-left">
+      <div class="why-img-frame">
+        <!-- IMAGE — replace with your own portrait photo. Recommended: 600×800px -->
+        <img class="why-img-fill" src="images/about.jpg" alt="Beautiful wedding setup by Ubra Events">
+      </div>
+      <div class="why-stats">
+        <span class="why-stat-num">100%</span>
+        <p class="why-stat-label">Client Satisfaction</p>
+      </div>
+    </div>
+    <div class="why-content reveal-right">
+      <div class="section-header">
+        <span class="section-tag">Why Choose Us</span>
+        <h2 class="section-title">Your Vision, <em>Our Craft</em></h2>
+        <div class="section-line" style="margin:0 0 20px;"></div>
+        <p class="section-desc" style="text-align:left;margin:0;">Trento's premier wedding and events specialist — combining local heart with luxury execution.</p>
+      </div>
+      <div class="why-points">
+        <div class="why-point">
+          <span class="why-point-num">01</span>
+          <div>
+            <p class="why-point-title">All-Inclusive Packages</p>
+            <p class="why-point-desc">No hidden fees, no stress. Everything from catering to décor to photography under one roof.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <span class="why-point-num">02</span>
+          <div>
+            <p class="why-point-title">Professional Team</p>
+            <p class="why-point-desc">Our coordinators, photographers, caterers, and stylists are experienced professionals dedicated to perfection.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <span class="why-point-num">03</span>
+          <div>
+            <p class="why-point-title">Locally Rooted, Luxury Quality</p>
+            <p class="why-point-desc">Based in Poblacion, Trento, we deliver world-class quality with genuine community warmth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="golden-sep" style="padding:0 24px;"><div class="sep-diamond"></div></div>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact" style="max-width:900px;padding:100px 24px;">
+
+  <div class="section-header reveal">
+    <span class="section-tag">Get In Touch</span>
+    <h2 class="section-title">Begin Your <em>Story</em></h2>
+    <div class="section-line"></div>
+    <p class="section-desc">Ready to plan the wedding of your dreams? Reach out to us through any of these channels and let's create magic together.</p>
+  </div>
+
+  <!-- Location badge -->
+  <div class="contact-location reveal reveal-delay-1">
+    <span class="contact-loc-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </span>
+    Poblacion, Trento, Agusan del Sur, Philippines
+  </div>
+
+  <!-- Social / Contact buttons grid -->
+  <div class="social-grid">
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/share/1DDF9XrzGP/" target="_blank" rel="noopener"
+       class="social-btn social-fb reveal reveal-delay-1" aria-label="Message us on Facebook">
+      <div class="social-btn-glow"></div>
+      <div class="social-btn-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </div>
+      <div class="social-btn-info">
+        <span class="social-btn-label">Facebook</span>
+        <span class="social-btn-handle">Ubra Events &amp; Boutique</span>
+      </div>
+      <div class="social-btn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </div>
+      <div class="social-ripple"></div>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener"
+       class="social-btn social-ig reveal reveal-delay-2" aria-label="Follow us on Instagram">
+      <div class="social-btn-glow"></div>
+      <div class="social-btn-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </div>
+      <div class="social-btn-info">
+        <span class="social-btn-label">Instagram</span>
+        <span class="social-btn-handle">@ubraevents</span>
+      </div>
+      <div class="social-btn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </div>
+      <div class="social-ripple"></div>
+    </a>
+
+    <!-- TikTok -->
+    <a href="https://www.tiktok.com/" target="_blank" rel="noopener"
+       class="social-btn social-tt reveal reveal-delay-3" aria-label="Watch us on TikTok">
+      <div class="social-btn-glow"></div>
+      <div class="social-btn-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.74a4.85 4.85 0 0 1-1.01-.05z"/></svg>
+      </div>
+      <div class="social-btn-info">
+        <span class="social-btn-label">TikTok</span>
+        <span class="social-btn-handle">@ubraevents</span>
+      </div>
+      <div class="social-btn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </div>
+      <div class="social-ripple"></div>
+    </a>
+
+    <!-- Messenger -->
+    <a href="https://m.me/ubraevents" target="_blank" rel="noopener"
+       class="social-btn social-msg reveal reveal-delay-1" aria-label="Message us on Messenger">
+      <div class="social-btn-glow"></div>
+      <div class="social-btn-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.259c0 2.809 1.334 5.325 3.436 7.006V21l3.154-1.729A10.45 10.45 0 0 0 12 19.517c5.523 0 10-4.144 10-9.258C22 6.145 17.523 2 12 2zm1.057 12.481L10.98 12.29l-4.141 2.191 4.555-4.835 2.076 2.191 4.141-2.191-4.554 4.835z"/></svg>
+      </div>
+      <div class="social-btn-info">
+        <span class="social-btn-label">Messenger</span>
+        <span class="social-btn-handle">Send us a message</span>
+      </div>
+      <div class="social-btn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </div>
+      <div class="social-ripple"></div>
+    </a>
+
+    <!-- Viber / Phone -->
+    <a href="tel:+639000000000"
+       class="social-btn social-phone reveal reveal-delay-2" aria-label="Call us">
+      <div class="social-btn-glow"></div>
+      <div class="social-btn-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.9-.89a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 16.92z"/></svg>
+      </div>
+      <div class="social-btn-info">
+        <span class="social-btn-label">Call / Viber</span>
+        <span class="social-btn-handle">+63 900 000 0000</span>
+      </div>
+      <div class="social-btn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </div>
+      <div class="social-ripple"></div>
+    </a>
+
+    <!-- Email -->
+    <a href="mailto:ubraevents@gmail.com"
+       class="social-btn social-email reveal reveal-delay-3" aria-label="Email us">
+      <div class="social-btn-glow"></div>
+      <div class="social-btn-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="social-btn-info">
+        <span class="social-btn-label">Email</span>
+        <span class="social-btn-handle">ubraevents@gmail.com</span>
+      </div>
+      <div class="social-btn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+      </div>
+      <div class="social-ripple"></div>
+    </a>
+
+  </div><!-- /social-grid -->
+
+  <!-- Floating CTA note -->
+  <p class="contact-note reveal">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:6px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    We typically reply within a few hours on Facebook &amp; Messenger.
+  </p>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <!-- LOGO — same file as nav/hero -->
+        <img src="images/logo.jpg" alt="Ubra Events Logo" class="footer-logo">
+        <p class="footer-brand-name">UBRA EVENTS</p>
+        <p class="footer-brand-tagline">&amp; Boutique</p>
+        <p class="footer-brand-desc">Creating timeless memories through beautifully crafted weddings and events. Your dream celebration, brought to life with elegance and care.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#packages">Wedding Packages</a></li>
+          <li><a href="#why">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Packages</p>
+        <ul class="footer-links">
+          <li><a href="#packages">Classic — ₱99,000</a></li>
+          <li><a href="#packages">All-In — ₱149,000</a></li>
+          <li><a href="#packages">Premium — ₱189,000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Ubra Events &amp; Boutique — Poblacion, Trento, ADS. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/share/1DDF9XrzGP/" target="_blank" title="Facebook">f</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- JS file linked at bottom so DOM is ready -->
+<script src="main.js"></script>
+</body>
+</html>
