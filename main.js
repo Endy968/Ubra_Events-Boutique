@@ -15,10 +15,27 @@ window.addEventListener('scroll', () => {
    MOBILE HAMBURGER MENU
 ══════════════════════════════════════ */
 function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('open');
+  const nav  = document.getElementById('navLinks');
+  const ham  = document.getElementById('hamburger');
+  const open = nav.classList.toggle('open');
+  ham.classList.toggle('open', open);
+  // Prevent body scroll when menu is open
+  document.body.style.overflow = open ? 'hidden' : '';
 }
 document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+// Close menu on backdrop tap
+document.getElementById('navLinks').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 });
 
 /* ══════════════════════════════════════
@@ -77,24 +94,6 @@ class Particle {
 
 for (let i = 0; i < 130; i++) particles.push(new Particle());
 
-function drawLines() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx   = particles[i].x - particles[j].x;
-      const dy   = particles[i].y - particles[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 95) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(201,168,76,${0.07 * (1 - dist / 95)})`;
-        ctx.lineWidth   = 0.5;
-        ctx.stroke();
-      }
-    }
-  }
-}
-
 // Mouse-attract effect
 let mouse = { x: W / 2, y: H / 2 };
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
@@ -115,44 +114,54 @@ function animateCanvas() {
     }
     p.update(); p.draw();
   });
-  drawLines();
+  // No lines — dots only
   requestAnimationFrame(animateCanvas);
 }
 animateCanvas();
 
 /* ══════════════════════════════════════
-   CURSOR GLOW TRAIL
+   CURSOR GLOW TRAIL — desktop only
 ══════════════════════════════════════ */
-const cursorGlow = document.createElement('div');
-cursorGlow.style.cssText = `
-  position:fixed; pointer-events:none; z-index:9998;
-  width:300px; height:300px; border-radius:50%;
-  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-  transform: translate(-50%,-50%);
-  transition: left 0.12s ease, top 0.12s ease;
-  will-change: left, top;
-`;
-document.body.appendChild(cursorGlow);
-window.addEventListener('mousemove', e => {
-  cursorGlow.style.left = e.clientX + 'px';
-  cursorGlow.style.top  = e.clientY + 'px';
-});
+if (!isTouch()) {
+  const cursorGlow = document.createElement('div');
+  cursorGlow.style.cssText = `
+    position:fixed; pointer-events:none; z-index:9998;
+    width:300px; height:300px; border-radius:50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    transform: translate(-50%,-50%);
+    transition: left 0.12s ease, top 0.12s ease;
+    will-change: left, top;
+  `;
+  document.body.appendChild(cursorGlow);
+  window.addEventListener('mousemove', e => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top  = e.clientY + 'px';
+  });
+}
+
+/* ══════════════════════════════════════
+   DEVICE DETECTION
+══════════════════════════════════════ */
+const isMobile = () => window.innerWidth <= 768;
+const isTouch  = () => ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
 /* ══════════════════════════════════════
    3D TILT — package cards & service items
+   Desktop only — skipped on touch devices
 ══════════════════════════════════════ */
 function addTilt(selector, intensity = 8) {
+  if (isTouch()) return;
   document.querySelectorAll(selector).forEach(el => {
     el.addEventListener('mousemove', e => {
-      const rect   = el.getBoundingClientRect();
-      const cx     = rect.left + rect.width  / 2;
-      const cy     = rect.top  + rect.height / 2;
-      const dx     = (e.clientX - cx) / (rect.width  / 2);
-      const dy     = (e.clientY - cy) / (rect.height / 2);
+      const rect = el.getBoundingClientRect();
+      const cx   = rect.left + rect.width  / 2;
+      const cy   = rect.top  + rect.height / 2;
+      const dx   = (e.clientX - cx) / (rect.width  / 2);
+      const dy   = (e.clientY - cy) / (rect.height / 2);
       el.style.transform = `perspective(800px) rotateY(${dx * intensity}deg) rotateX(${-dy * intensity}deg) translateY(-6px) scale(1.02)`;
     });
     el.addEventListener('mouseleave', () => {
-      el.style.transform = '';
+      el.style.transform  = '';
       el.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
     });
     el.addEventListener('mouseenter', () => {
@@ -173,7 +182,7 @@ document.querySelectorAll('.social-btn').forEach(btn => {
     ripple.style.left = (e.clientX - rect.left) + 'px';
     ripple.style.top  = (e.clientY - rect.top)  + 'px';
     this.classList.remove('rippling');
-    void this.offsetWidth; // reflow
+    void this.offsetWidth;
     this.classList.add('rippling');
     setTimeout(() => this.classList.remove('rippling'), 700);
   });
@@ -181,24 +190,79 @@ document.querySelectorAll('.social-btn').forEach(btn => {
 
 /* ══════════════════════════════════════
    MAGNETIC HOVER — social buttons
-   Buttons subtly follow the cursor within their bounds
+   Desktop only
 ══════════════════════════════════════ */
-document.querySelectorAll('.social-btn').forEach(btn => {
-  btn.addEventListener('mousemove', e => {
-    const rect = btn.getBoundingClientRect();
-    const cx   = rect.left + rect.width  / 2;
-    const cy   = rect.top  + rect.height / 2;
-    const dx   = (e.clientX - cx) * 0.12;
-    const dy   = (e.clientY - cy) * 0.12;
-    btn.style.transform = `translate(${dx}px, ${dy - 6}px) scale(1.02)`;
+if (!isTouch()) {
+  document.querySelectorAll('.social-btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const cx   = rect.left + rect.width  / 2;
+      const cy   = rect.top  + rect.height / 2;
+      const dx   = (e.clientX - cx) * 0.12;
+      const dy   = (e.clientY - cy) * 0.12;
+      btn.style.transform = `translate(${dx}px, ${dy - 6}px) scale(1.02)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform  = '';
+      btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+    });
+    btn.addEventListener('mouseenter', () => {
+      btn.style.transition = 'transform 0.15s ease';
+    });
   });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform = '';
-    btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+}
+
+/* ══════════════════════════════════════
+   PACKAGE CARDS — scroll-snap dots (mobile)
+══════════════════════════════════════ */
+function initPackageDots() {
+  const row   = document.querySelector('.package-row');
+  const cards = document.querySelectorAll('.package-card');
+  if (!row || !cards.length) return;
+
+  // Insert dots container after the package row
+  const dotsEl = document.createElement('div');
+  dotsEl.className = 'pkg-dots';
+  cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'pkg-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Package ${i + 1}`);
+    dot.addEventListener('click', () => {
+      cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    dotsEl.appendChild(dot);
   });
-  btn.addEventListener('mouseenter', () => {
-    btn.style.transition = 'transform 0.15s ease';
-  });
+  row.parentNode.insertBefore(dotsEl, row.nextSibling);
+
+  // Update active dot on scroll
+  let scrollTimer;
+  row.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const scrollLeft   = row.scrollLeft;
+      const cardWidth    = row.offsetWidth;
+      const activeIndex  = Math.round(scrollLeft / (cardWidth * 0.84));
+      dotsEl.querySelectorAll('.pkg-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === activeIndex);
+      });
+    }, 50);
+  }, { passive: true });
+}
+
+// Only init on mobile/touch
+if (isTouch() || isMobile()) {
+  initPackageDots();
+}
+// Re-init on resize crossing threshold
+let wasTouch = isTouch();
+window.addEventListener('resize', () => {
+  const nowTouch = isTouch();
+  if (nowTouch !== wasTouch) {
+    wasTouch = nowTouch;
+    const existing = document.querySelector('.pkg-dots');
+    if (existing) existing.remove();
+    if (nowTouch) initPackageDots();
+  }
 });
 
 /* ══════════════════════════════════════
@@ -290,14 +354,16 @@ window.addEventListener('load', () => {
 });
 
 /* ══════════════════════════════════════
-   GALLERY — Parallax on scroll
+   GALLERY — Parallax on scroll (desktop only)
 ══════════════════════════════════════ */
-const galleryCells = document.querySelectorAll('.gallery-cell img');
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  galleryCells.forEach((img, i) => {
-    const offset = (scrollY * (0.04 + i * 0.01));
-    img.style.transform = `translateY(${offset}px) scale(1.08)`;
-  });
-}, { passive: true });
+if (!isTouch()) {
+  const galleryCells = document.querySelectorAll('.gallery-cell img');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    galleryCells.forEach((img, i) => {
+      const offset = scrollY * (0.04 + i * 0.01);
+      img.style.transform = `translateY(${offset}px) scale(1.08)`;
+    });
+  }, { passive: true });
+}
 

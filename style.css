@@ -120,7 +120,7 @@ nav.scrolled {
   min-height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; position: relative; overflow: hidden;
-  padding: 120px 24px 100px;
+  padding: 160px 24px 100px;
 }
 
 /* Floating petals */
@@ -142,7 +142,6 @@ nav.scrolled {
   margin: 0 auto 28px;
   position: relative;
   opacity: 0;
-  animation: zoomIn 1.2s 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards;
 }
 .hero-logo-wrap::before {
   content: '';
@@ -331,6 +330,8 @@ section { padding: 110px 24px; max-width: 1200px; margin: 0 auto; }
 /* ══════════════════════════════════════
    PACKAGES
 ══════════════════════════════════════ */
+.packages-section { max-width: 1200px; }
+
 .package-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: start; }
 
 .package-card {
@@ -772,12 +773,18 @@ footer {
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Floating up-down for hero logo */
+/* Floating up-down for hero logo — runs AFTER zoomIn completes */
 @keyframes floatUpDown {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-12px); }
+  0%, 100% { opacity: 1; transform: translateY(0px); }
+  50%       { opacity: 1; transform: translateY(-12px); }
 }
-.hero-logo-wrap { animation: floatUpDown 5s ease-in-out infinite 1.8s; }
+/* zoomIn entrance (delay 0.2s, duration 1.2s) finishes at ~1.4s.
+   floatUpDown starts at 1.5s so there is no conflict. */
+.hero-logo-wrap {
+  animation:
+    zoomIn 1.2s 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards,
+    floatUpDown 5s 1.5s ease-in-out infinite;
+}
 
 /* Wavy underline on section titles */
 .section-title em {
@@ -819,31 +826,271 @@ footer {
 }
 
 /* ══════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — TABLET (≤1024px)
 ══════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .package-row { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
-  .package-card.featured { transform: none; }
+  .package-row { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .package-card.featured { transform: none; animation: none; }
+  .package-card.featured:hover { transform: translateY(-8px); }
   .services-grid { grid-template-columns: 1fr 1fr; }
   .why-inner { grid-template-columns: 1fr; gap: 50px; }
-  .contact-inner { grid-template-columns: 1fr; }
+  .why-visual { max-width: 400px; margin: 0 auto; }
   .footer-top { grid-template-columns: 1fr 1fr; }
-  .gallery-strip { grid-template-columns: 1fr 1fr; height: 480px; }
+  .gallery-strip { grid-template-columns: 1fr 1fr; height: 440px; }
+  .social-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
 }
+
+/* ══════════════════════════════════════
+   RESPONSIVE — MOBILE (≤768px)
+   Full UX overhaul: larger tap targets, cleaner spacing,
+   bottom-safe-area padding, readable font sizes,
+   smooth slide-in menu, horizontal package scroll.
+══════════════════════════════════════ */
 @media (max-width: 768px) {
-  nav { padding: 14px 20px; }
-  nav.scrolled { padding: 10px 20px; }
-  .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(8,8,8,0.98); flex-direction: column; align-items: center; justify-content: center; gap: 32px; z-index: 200; border-radius: 0; }
-  .nav-links.open { display: flex; }
-  .nav-links a { font-size: 1rem; letter-spacing: 0.2em; }
+
+  /* ── Base ── */
+  body { font-size: 16px; }
+  section { padding: 64px 20px; }
+
+  /* ── NAV ── */
+  nav {
+    padding: 14px 20px;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(16px);
+    border-radius: 0;
+  }
+  nav.scrolled { padding: 10px 20px; border-radius: 0; }
+  .nav-logo-img { height: 40px; }
+  .nav-logo-text { font-size: 0.85rem; }
   .hamburger { display: flex; }
-  .services-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; gap: 36px; }
-  .footer-bottom { flex-direction: column; text-align: center; }
-  section { padding: 72px 20px; }
-  .gallery-strip { grid-template-columns: 1fr 1fr; height: 360px; border-radius: var(--radius-md); }
-  .contact-form { padding: 28px 20px; }
-  footer { border-radius: 28px 28px 0 0; padding: 50px 24px 24px; }
-  .hero-logo-wrap { width: 150px; height: 150px; }
+
+  /* Full-screen slide-in menu */
+  .nav-links {
+    display: flex;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(8,8,8,0.97);
+    backdrop-filter: blur(24px);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 0; z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.38s cubic-bezier(0.16,1,0.3,1);
+    border-radius: 0;
+  }
+  .nav-links.open { transform: translateX(0); }
+  .nav-links li {
+    width: 100%; text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .nav-links li:first-child { border-top: 1px solid rgba(201,168,76,0.08); }
+  .nav-links a {
+    display: block; padding: 22px 40px;
+    font-size: 0.95rem; letter-spacing: 0.22em;
+    min-height: 64px; display: flex; align-items: center; justify-content: center;
+  }
+  .nav-links .nav-cta {
+    margin: 28px auto 0 !important;
+    display: inline-flex !important;
+    padding: 14px 36px !important;
+    border-radius: 50px !important;
+    font-size: 0.78rem !important;
+    min-height: auto;
+    border-bottom: none !important;
+  }
+  .nav-links li:has(.nav-cta) { border-bottom: none; }
+
+  /* Hamburger → X when open */
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(-8px); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* ── HERO ── */
+  .hero { padding: 120px 20px 80px; min-height: 100dvh; }
+  .hero-logo-wrap {
+    width: 120px; height: 120px;
+    margin-bottom: 28px; margin-top: 8px;
+    animation:
+      zoomIn 1.2s 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards,
+      floatUpDown 5s 1.5s ease-in-out infinite !important;
+  }
+  .orbit-dot { display: none; } /* too cramped on small screens */
+  .hero h1 { font-size: clamp(2.2rem, 11vw, 4rem); letter-spacing: 0.02em; }
+  .hero-sub { font-size: 0.9rem; padding: 0 8px; }
+  .hero-location { font-size: 0.65rem; letter-spacing: 0.2em; }
+  .hero-btns { flex-direction: column; gap: 12px; margin-top: 32px; }
+  .btn-gold, .btn-outline {
+    width: 100%; max-width: 280px;
+    padding: 16px 32px;
+    font-size: 0.75rem;
+    /* Minimum 44px touch target */
+    min-height: 52px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .scroll-hint { display: none; }
+
+  /* ── SERVICES ── */
+  .services-grid { grid-template-columns: 1fr; gap: 14px; }
+  .service-item { padding: 32px 24px; border-radius: var(--radius-md); }
+  .service-icon-wrap { width: 60px; height: 60px; font-size: 1.5rem; }
+
+  /* ── PACKAGES — horizontal scroll on mobile ── */
+  .packages-section {
+    max-width: 100% !important;
+    padding: 64px 0;
+    overflow: visible;
+  }
+  .packages-section .section-header { padding: 0 20px; margin-bottom: 40px; }
+  .package-row {
+    display: flex !important;
+    flex-direction: row !important;
+    grid-template-columns: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 14px;
+    padding: 8px 20px 20px;
+    max-width: 100% !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* First and last card get extra margin so they center when snapped */
+    scroll-padding-left: 20px;
+  }
+  .package-row::before,
+  .package-row::after {
+    content: ''; flex: 0 0 4px; /* edge breathing room */
+  }
+  .package-row::-webkit-scrollbar { display: none; }
+  .package-card {
+    flex: 0 0 80vw !important;
+    max-width: 300px !important;
+    min-width: 260px !important;
+    width: auto !important;
+    scroll-snap-align: start;
+    border-radius: var(--radius-md) !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  .package-card.featured {
+    transform: none !important;
+    box-shadow: 0 0 0 2px var(--gold) !important;
+    animation: none !important;
+  }
+  .package-img { height: 160px; border-radius: var(--radius-md) var(--radius-md) 0 0 !important; }
+  .package-body { padding: 20px 18px; }
+  .package-price { font-size: 1.5rem; }
+  .package-list li { font-size: 0.8rem; }
+
+  /* Scroll indicator dots for packages */
+  .pkg-dots {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 12px; padding-bottom: 4px;
+  }
+  .pkg-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(201,168,76,0.25); transition: all 0.3s;
+    cursor: pointer; min-width: 6px; min-height: 6px;
+  }
+  .pkg-dot.active { background: var(--gold); width: 20px; border-radius: 3px; }
+
+  /* ── GALLERY ── */
+  .gallery-strip {
+    grid-template-columns: 1fr 1fr;
+    height: 320px;
+    border-radius: var(--radius-md);
+    margin: 0 16px;
+  }
+
+  /* ── QUOTE ── */
+  .quote-section { padding: 64px 20px; }
+  .quote-mark { font-size: 6rem; }
+  .quote-text { font-size: 1.3rem; }
+
+  /* ── WHY US ── */
+  #why { padding: 64px 20px !important; }
+  .why-inner { gap: 36px; }
+  .why-img-frame { aspect-ratio: 4/3; border-radius: var(--radius-md); }
+  .why-img-frame::before { border-radius: calc(var(--radius-md) - 6px); }
+  .why-stats {
+    right: 12px; bottom: -12px;
+    padding: 16px 20px; border-radius: var(--radius-sm);
+  }
+  .why-stat-num { font-size: 1.8rem; }
+  .why-points { gap: 20px; }
+  .why-point-num { font-size: 1.8rem; min-width: 36px; }
+
+  /* ── CONTACT / SOCIAL ── */
+  #contact { padding: 64px 20px !important; }
+  .social-grid { grid-template-columns: 1fr; gap: 12px; }
+  .social-btn {
+    padding: 18px 20px; gap: 16px;
+    border-radius: var(--radius-md);
+    min-height: 72px; /* touch-target */
+  }
+  .social-btn-icon { width: 46px; height: 46px; font-size: 1.1rem; flex-shrink: 0; }
+  .social-btn-label { font-size: 0.82rem; }
+  .social-btn-handle { font-size: 0.75rem; }
+  .contact-location { font-size: 0.62rem; flex-direction: column; gap: 6px; text-align: center; margin-bottom: 40px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-radius: 28px 28px 0 0;
+    padding: 44px 20px 40px;
+    /* Safe area for notched phones */
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .footer-brand-desc { max-width: 100%; }
+  .footer-bottom {
+    flex-direction: column; text-align: center; gap: 16px;
+    padding-bottom: 8px;
+  }
+  .footer-logo { height: 52px; width: 52px; }
+
+  /* ── SECTION TAGS & TITLES ── */
+  .section-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+  .section-desc { font-size: 0.9rem; }
+
+  /* ── GOLDEN SEPARATOR ── */
+  .golden-sep { padding: 0 20px; }
+}
+
+/* ══ Extra small (≤380px — older iPhones, small Androids) ══ */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 2rem; }
+  .hero-logo-wrap { width: 110px; height: 110px; }
+  .package-card { flex: 0 0 88vw; }
+  .social-btn { padding: 16px 16px; gap: 14px; }
+  .social-btn-icon { width: 40px; height: 40px; }
+  .btn-gold, .btn-outline { max-width: 260px; font-size: 0.7rem; }
+}
+
+/* ══ Touch active press states ══
+   Gives tactile feel on tap since hover doesn't fire on mobile */
+@media (hover: none) {
+  .social-btn:active {
+    transform: scale(0.96) !important;
+    opacity: 0.85;
+    transition: transform 0.1s ease, opacity 0.1s ease !important;
+  }
+  .btn-gold:active {
+    transform: scale(0.96) !important;
+    box-shadow: 0 2px 10px rgba(201,168,76,0.3) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .btn-outline:active {
+    transform: scale(0.96) !important;
+    background: rgba(201,168,76,0.08) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .service-item:active {
+    transform: scale(0.98) !important;
+    border-color: rgba(201,168,76,0.35) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .package-btn:active {
+    background: rgba(201,168,76,0.15) !important;
+    transform: scale(0.98) !important;
+  }
+  /* Disable heavy hover animations that don't make sense on touch */
+  .service-item:hover { transform: none; box-shadow: none; }
+  .package-card:hover { transform: none; box-shadow: none; animation: none; }
 }
